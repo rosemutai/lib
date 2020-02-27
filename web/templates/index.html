@@ -1,0 +1,164 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>EBook | Home</title>
+    <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+    <style>
+            body{
+                background-image: url("{% static 'Images/h.jpg'%}");
+                background-attachment: fixed;
+                background-position: center;
+                background-size:cover;
+                background-repeat: no-repeat;
+            }
+            div.landing{
+                position:relative;
+                height:100vh;
+                width:100vw;
+                background-image:url("{% static 'Images/5.png'%}");
+                background-attachment: fixed;
+                background-position: center;
+                background-size:cover;
+                background-repeat: no-repeat;
+            }
+            div.topbarner{
+               background-image:url("{% static 'Images/soft.jpg'%}");
+               display: flex;
+               flex-flow: row nowrap;
+               justify-content: space-between;
+       }
+
+         a{
+       list-style-type: none;
+
+         }
+         li{
+             display: inline;
+             padding: 30px;
+             color: FFFFFF;
+             margin-left: 0px;
+         }
+            div.contact{
+                background-image:url("{% static 'Images/dark.jpg'%}");
+                position: relative;
+                width:99vw;
+                text-align: center;
+                color:white;
+                font-family: cursive;
+                background-attachment: fixed;
+                background-position: center;
+                background-size:cover;
+                background-repeat: no-repeat;
+            }
+            div.module{
+                position:relative;
+                left:50%;
+                max-width:800px;
+                margin:10px 0px;
+                transform:translateX(-50%);
+                padding:20px;
+                font-family: 'Avenir', Helvetica, Arial, sans-serif;
+                background:rgba(200,200,200,0.8);
+                color:black;
+            }
+
+            .btn btn-secondary dropdown-toggle{
+                         background-color: red;
+            }
+
+
+    </style>
+</head>
+<body>
+<div class="topbarner">
+    <center><h1>EBook</h1></center>
+
+    <ul>
+
+        <a href="{% url 'signup' %}">
+            <li>Sign Up</li>
+        </a>
+        <a href="{% url 'login' %}">
+            <li>Login</li>
+        </a>
+        <!--<a href="{% url 'shop' %}">-->
+            <!--<li>Shop</li>-->
+        <!--</a>-->
+        <!--<a href="{% url 'upload_file' %}">-->
+            <!--<li>Upload-File</li>-->
+        <a href="{% url 'index' %}">
+            <li>Library</li>
+        </a>
+
+<!--{{group_of_categories}}-->
+<!--{{categories}}-->
+        <!--<div class="dropdown">-->
+            <!--<a class="btn btn-secondary dropdown-toggle" href="{% url "#" role="button"-->
+               <!--id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu" style="height: 50px;over-flow-y: scroll;" aria-labelledby="dropdownMenuLink">-->
+                <!--{% for category in categories%}-->
+                <!--<a class="dropdown-item" href="{{category}}">{{category}}</a>-->
+                <!--{% endfor %}-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </ul>
+
+</div>
+</div>
+<div class="landing">
+
+</div>
+<div class="module">
+    <h3>About Us</h3><br/>
+    <p>We are an online textbook center that deals with primary and secondary textbooks as per the new curriculum.</p>
+</div>
+<div class="module">
+    <h3>Our Services</h3><br/>
+    <p>Sale of textbooks, Provides a platform where you can sell your books</p>
+</div>
+<div class="module">
+    <h3>Our Goals</h3><br/>
+    <p>To be the best pservice deliverer need.</p>
+</div>
+<div class="contact">
+    <h2>Contacts</h2>
+    <div class="myContacts">
+        <ul>
+            <li>Phone: +254789456900</li>
+            <li>Email: ebook@gmail.com</li>
+            <li>Twitter: @EbookKe</li>
+            <li>FaceBook: EbookKenya</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="{% static 'js/elements.js' %} "></script>
+</html>
+
+
+<!--<div class="dropdown-content">-->
+<!--{% for category in group_of_categories%}-->
+<!--<li><a href="#">{{category}} </a></li>-->
+<!--{% endfor %}-->
+<!--</div>-->
+<!---->
+
+ <!--<div class="navopen" onclick="show('navbar')">-->
+        <!--<div class="line"></div>-->
+        <!--<div class="line"></div>-->
+        <!--<div class="line"></div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="navbar" id="navbar">-->
+    <!--<div class="navopen" onclick="hide('navbar')">-->
+        <!--<div class="line dark"></div>-->
+        <!--<div class="line dark"></div>-->
+    <!--</div>-->

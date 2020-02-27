@@ -1,0 +1,41 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Applications</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Shop name</th>
+                        <th>Description</th>
+                        <th>Application time</th>
+                        <th>Approve</th>
+                        <th>Cancel</th>
+                    </tr>
+                    {% for application in applications %}
+                        <tr>
+                            <td>{{application.user}}</td>
+                            <td>{{application.shopName}}</td>
+                            <td>{{application.description}}</td>
+                            <td>{{application.timestamp}}</td>
+                            <td><a href="approveapplication/{{application.id}}">Accept</a></td>
+                            <td><a href="declineapplication/{{application.id}}">Decline</a></td>
+                            <td>
+
+                        </tr>
+                    {% endfor %}
+                </table><br>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

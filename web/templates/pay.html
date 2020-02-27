@@ -1,0 +1,23 @@
+{% extends 'simple.html' %}
+{% block title %}<title>EBook | Pay</title>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+        <ul class="nav">
+            <a href="user/{{user}}"><li>Home</li></a>
+            <a href="{% url 'cart' %}"><li>Cart</li></a>
+        </ul>
+    </div>
+{% endblock %}
+{% block form %}
+    <div class="middle small">
+        <div>{{amount}}</div>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Phone Number</label>
+            <input class="text" type="text" name="phoneNO">
+            <input type="hidden" name="amount" value="{{amount}}" readonly>
+            <a href="{%url 'pay' %}">Pay</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'mainforms.html' %}
+    {% block form %}
+        <h2>SignUp</h2>
+        <form method="POST" action="{% url 'signup'%}">
+            {% csrf_token %}
+            <input class="text" type="text" name="username" placeholder="Username"/>
+            <input class="text" type="text" name="email" placeholder="Email">
+            <input class="text" type="text" name="postCode" placeholder="Postal Code">
+            <input class="text" type="password" name="cpass" placeholder="Password">
+            <input class="text" type="password" name="password" placeholder="Confirm Password">
+            <input class="btn" type="submit" value="Submit"/>
+        </form>
+    {% endblock form %}

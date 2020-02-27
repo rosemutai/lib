@@ -1,0 +1,13 @@
+{% extends 'mainforms.html' %}
+    {% block form %}
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input class="text" type="text" name="email" placeholder="Email"/>
+            <input class="text" type="password" name="password" placeholder="Password">
+            <input class="btn" type="submit" value="Submit"/>
+
+
+        </form>
+
+    {% endblock form %}

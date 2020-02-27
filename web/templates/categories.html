@@ -1,0 +1,28 @@
+{% for group in get_book_by_group_of_categories %}
+<div class="row">
+    <div class="col">
+        {% for book in get_books_by_category %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-body">
+                    <img class="pImage" src={{book.book_img.url}} width="100" height="100">
+                    <h3 class="card-title">{{book.book_name}}</h3>
+                    <h4 class="card-title">Author: {{book.author}}</h4>
+                    <div class="addItem" id="addToCart{{book.ISBN}}">
+                        <h5>Add Item</h5>
+                        <form method="POST" action="{% url 'order' %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{book.ISBN}}" name="isbn" readonly/>
+                            <input class="text" type="text" name="quantity" placeholder="Quantity"/>
+                            <input class="aButton" type="submit" value="Add to Cart">
+                        </form>
+                        <button onclick="{% url 'guestorder' %}" class="aButton">Order</button  >
+                    </div>
+                </div>
+            </div>
+            </div>
+        {%endfor %}
+
+    </div>
+</div>
+{% endfor%}

@@ -1,0 +1,90 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+        <link rel="stylesheet" href="{% static 'CSS/productpage.css' %}">
+        <link rel="stylesheet" href="{% static 'CSS/all.min.css' %}">
+
+
+    <style>
+        div.card{
+            margin-top: 100px;
+        }
+       div.topbarner{
+               background-image:url("{% static 'Images/soft.jpg'%}");
+               display: flex;
+               flex-flow: row nowrap;
+               justify-content: space-between;
+       }
+
+         a{
+       list-style-type: none;
+
+         }
+         li{
+             display: inline;
+             padding: 30px;
+             color: FFFFFF;
+         }
+    </style>
+
+</head>
+
+
+
+{% block title %}<title>EBook</title>{% endblock title %}
+
+{% block navbar %}
+
+<div class="topbarner">
+    <center><h1>EBook</h1></center>
+
+    <ul>
+    <a href="{% url 'cart'%}">
+        <li>My Cart</li>
+    </a>
+    <a href="{% url 'order_user'%}">
+        <li>Order</li>
+    </a>
+    <a href="{% url 'upload_file'%}">
+        <li>Upload file to make order</li>
+    </a>
+    <a href="{% url 'apply' %}">
+            <li>Sell</li>
+        </a>
+
+
+    <a href="{% url 'user_logout'%}">
+        <li>Logout</li>
+    </a>
+
+</ul>
+</div>
+
+
+{% endblock navbar %}
+    <div class="row">
+    {% for stationery in stationers  %}
+      <div class="col">
+                <div class="card" style="width: 18rem;">
+
+                    <img class="pImage" src="{{stationery.item_img.url}}"  >
+                    <div class="card-body">
+
+                        <h5 class="card-title">{{ stationery.name }}</h5>
+                        <p class="card-text">Price: {{ stationery.price }}</p>
+                        <button  class="aButton">Add to Cart</button>
+
+                        <!--<a href="{% url 'cart' %}" class="btn btn-success">Add to Cart</a>-->
+
+                    </div>
+                </div>
+            </div>
+      {% endfor %}
+
+</div>
+</body>
+</html>

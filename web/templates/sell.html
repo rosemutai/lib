@@ -1,0 +1,14 @@
+{% extends 'mainforms.html' %}
+    {% block form %}
+        <h2>Sell Your Product</h2>
+        <form method="POST" action="{% url 'sell'%}">
+            {% csrf_token %}
+            <input class="text" type="text" name="firstName" placeholder="First Name"/>
+            <input class="text" type="text" name="lastName" placeholder="Last Name"/>
+            <input class="text" type="text" name="shopName" placeholder="Shop Name"/>
+            <input class="text" type="text" name="email" placeholder="Email">
+            <input class="text" type="password" name="password" placeholder="Password">
+            <input class="text" type="password" name="confirmPassword" placeholder="Confirm Password">
+            <input class="btn" type="submit" value="Submit"/>
+        </form>
+    {% endblock form %}

@@ -1,0 +1,62 @@
+{% load static %}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <title>EBook</title>
+        <link rel="stylesheet" href="{% static 'CSS/mainforms.css' %}">
+
+        <style>
+            .navbar{
+
+                  width:100%;
+                  height:75px:
+                  style-type: none;
+                  background-image: url("{% static 'Images/soft.jpg'%}");
+                  margin-bottom: 25px;
+                  padding: 12px;
+             }
+            li{
+                  display: inline;
+                  list-style-type: none;
+                  margin:25px;
+                  padding-top: 50px;
+                  padding-bottom: 50px;
+                  color: white;
+            }
+
+            body{
+                background-color: #F8F8F8;
+            }
+
+            .mainform {
+                background-color: white;
+                box-shadow: none;
+            }
+        </style>
+    </head>
+    <div class="topbarner">
+    <ul class="navbar">
+
+        <a href="{% url 'signup' %}">
+            <li>Sign Up</li>
+        </a>
+        <a href="{% url 'login' %}">
+            <li>Login</li>
+        </a>
+        <a href="{% url 'apply' %}">
+            <li>Sell</li>
+        </a>
+    </ul>
+</div>
+    <body>
+        <div class="mainform">
+            {% if error %}
+                <div class="error">
+                    {{error}}
+                </div>
+            {% endif %}
+            {% block form %}
+            {% endblock form %}
+        </div>
+    </body>
+</html>

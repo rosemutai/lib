@@ -1,0 +1,88 @@
+{% load static %}
+<!--Extended to pay cart and confirm-->
+<html>
+    <head>
+        {% block title %}<title>EBook</title>{% endblock %}
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+        <style>
+            div.topbarner{
+                background-image:url("{% static 'Images/soft.jpg'%}");
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+            }
+            .middle{
+                position:relative;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+                max-width:75%;
+            }
+            .btn{
+                position:relative;
+                width:100%;
+                padding:10px;
+                border:none;
+                background:#823b28;
+                color:white;
+                box-shadow: 5px 5px 5px 5px gray;
+            }
+            table{
+                position: relative;
+                width:100%;
+                padding:0px;
+                border:none;
+            }
+            td,th{
+                padding:5px;
+                text-align: center;
+                margin:0px;
+                border:none;
+            }
+            table tr:nth-child(even){
+                background:lightgrey;
+            }
+            table tr:nth-child(odd){
+                background:whitesmoke;
+            }
+            .small{
+                position: relative;
+                max-width:40%;
+            }
+            input.text{
+                margin:20px 0px;
+                position: relative;
+                width:100%;
+                padding:10px;
+                color:black;
+                background:whitesmoke;
+                border:none;
+            }
+            label{
+                font-weight: bolder;
+            }
+            ul.nav{
+                list-style-type: none;
+                display: block;
+            }
+            a{
+                text-decoration: none;
+            }
+            li{
+                margin:10px 5px; 
+                padding:5px;
+                background:white;
+                display:inline-block;
+                box-shadow: 2px 2px 5px 2px gray;
+                margin-right: 48px;
+            }
+        </style>
+    </head>
+    <body>
+        {% block nav%}
+        {% endblock %}
+        {% block form %}
+        {% endblock %}
+    </body>
+</html>

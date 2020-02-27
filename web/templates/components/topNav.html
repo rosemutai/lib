@@ -1,0 +1,10 @@
+{% block navbar %}
+    <div class="topbarner">
+        <ul class="navbar">
+            <a href="{% url 'index'%}"><li>Home</li></a>
+            <a href="{% url 'login'%}"><li>Login</li></a>
+            <a href="{% url 'signup'%}"><li>Sign Up</li></a>
+            <a href="{% url 'guest'%}"><li>Shop</li></a>
+        </ul>
+    </div>
+{% endblock navbar %}

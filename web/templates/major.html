@@ -1,0 +1,81 @@
+{% load static %}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        {% block title %}<title>EBook</title>{% endblock %}
+        <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+        <link rel="stylesheet" href="{% static 'CSS/productpage.css'%}">
+        <link rel="stylesheet" href="{% static 'CSS/all.min.css'%}">
+        <style>
+            div.topbarner{
+                background-image:url("{% static 'Images/soft.jpg'%}");
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+            }
+            .nav-brand {
+                margin-left: 60px;
+            }
+
+            div.addItem{
+                padding:40px;
+                background:#f37736;
+                color:white;
+                border-radius: 10px;
+                z-index:11;
+                position:fixed;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+                display:none;
+            }
+            input.text{
+                padding:10px;
+                position: relative;
+                width:100%;
+                border:none;
+                background:white;
+                color:black;
+                padding:10px;
+                border:1px solid transparent;
+            }
+            input.aButton{
+                background:#f37736;
+                border:1px solid white;
+                color:white;
+                font-weight: bolder;
+                padding:10px;
+                position:relative;
+                left:50%;
+                transform: translateX(-50%);
+                margin-top:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="topbarner">
+
+            <center><h3 class="nav-brand">EBook</h3></center><br/>
+
+            <!--<center>-->
+            <!--<div class="search">-->
+                <!--<form class="search" action="{% url 'search' %}" method="POST">-->
+                    <!--{% csrf_token %}-->
+                    <!--<input class="search" type="text" name="search" placeholder="Search"/>-->
+
+                    <!--<a href="{% url 'search' %}"></a>-->
+                    <!--<input class="searchBtn" type="submit" src="{% static 'Icon/search.png' %}" />-->
+
+
+                <!--</form>-->
+            <!--</div>-->
+            </center>
+        </div>
+
+        </div>
+
+    {% block shop %}
+    {% endblock %}
+    </body>
+    <script src="{% static 'js/elements.js' %} "></script>
+</html>

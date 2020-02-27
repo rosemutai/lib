@@ -1,0 +1,33 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>My Books</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+
+                    </tr>
+                    {% for book in books %}
+                        <tr>
+                           <td>{{book.book.book_name}}</td>
+                            <td>{{book.book.in_stock}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </table><br>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

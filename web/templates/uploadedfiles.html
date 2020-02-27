@@ -1,0 +1,40 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Uploaded Files</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <table>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Upload time</th>
+
+
+                    </tr>
+                    {% for file in files %}
+
+                        <tr>
+                            <td><a href="uploadedfile/{{file.id}}">{{file.first_name}}</a></td>
+                            <td>{{file.last_name}}</td>
+                            <td>{{file.email}}</td>
+                            <td>0{{file.phone}}</td>
+                            <td>{{file.timestamp}}</td>
+                        </tr>
+                    {% endfor %}
+                </table><br>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

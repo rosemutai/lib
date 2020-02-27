@@ -1,0 +1,68 @@
+
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>EBook</title>
+    <link rel="stylesheet" href="{% static 'CSS/mainforms.css' %}">
+
+
+    <style>
+
+            body{
+                <!--background-image: url("{% static 'Images/h.jpg'%}");-->
+                background-attachment: fixed;
+                background-position: center;
+                background-size:cover;
+                background-repeat: no-repeat;
+
+            }
+
+
+            div.main-form {
+                 position: relative;
+                 margin-top:350px;
+                 top: 50%;
+                 left: 50%;
+                 -webkit-transform: translate(-50%, -50%);
+                     transform: translate(-50%, -50%);
+                 display: block;
+                 width: 400px;
+                 text-align: Left;
+                 padding: 20px;
+                 <!-- -webkit-box-shadow: 5px 5px 5px 5px lightgrey;-->
+                     <!--box-shadow: 5px 5px 5px 5px light-grey;-->
+                 color: black;
+                 background-color: #DCDCDC;
+                 border-radius: 4px;
+              }
+
+             .form-submit {
+                 background-color: #8B4513;
+                 color: #FFFFFF;
+                 font-weight: 600;
+                 width: 50%;
+             }
+
+    </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+    <div class="main-form">
+        <h4 class="page-header">Checkout</h4>
+        <form class="inputs" action="{% url 'order_user' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}<br>
+            <input type="submit" class="btn btn-primary form-submit" value="Submit order">
+        </form>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+{% endblock %}
+</html>

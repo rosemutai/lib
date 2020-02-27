@@ -1,0 +1,35 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Approved Shops</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Shop name</th>
+                        <th>Description</th>
+
+                    </tr>
+                    {% for shop in shops %}
+                        <tr>
+                            <td>{{shop.user}}</td>
+                            <td>{{shop.shopName}}</td>
+                            <td>{{shop.description}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </table><br>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

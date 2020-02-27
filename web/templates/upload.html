@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/mainforms.css' %}"/>
+    <link rel="stylesheet" href="{% static 'CSS/index.css' %}"/>
+
+    <style>
+
+            body{
+                background-color: white;
+                color: white;
+            }
+
+            input {
+                position: relative;
+                display: block;
+                margin: 45px 100px;
+                width: 30%;
+                outline: none;
+                border: none;
+                padding: 10px;
+
+            }
+
+        </style>
+</head>
+<body>
+{% block nav %}
+    <div class="topbarner" style="display: flex;flex-flow:row nowrap;justify-content: space-between;align-items: center;">
+
+        <a href="user/{{user.email}}"><h3 style="color: white;padding: 12px;">EBook</h3></a>
+    </div>
+{% endblock %}
+<center style="margin-top: 96px; color: black;">
+
+    <h3>Place your order by just uploading a list of books you want to buy.</h3>
+    <br>
+    <p>Minimum 10 books</p>
+
+    <form method="POST" action="{% url 'upload_file' %}">
+    {% csrf_token %}
+
+    <input class="text" type="text" name="first_name" required placeholder="First name">
+
+    <input class="text" type="text" name="last_name" required placeholder="Last name">
+
+    <input class="text" type="text" name="phone" required placeholder="Phone number">
+
+    <input class="text" type="text" name="email" required placeholder="Email">
+    <p>Upload file with list of books</p>
+    <p><input class="text" type="file" name="file" placeholder="Upload File"></p>
+    <p><input class="btn" type="submit"></p>
+</form></center>
+
+</body>
+</html>

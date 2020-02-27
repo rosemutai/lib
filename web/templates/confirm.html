@@ -1,0 +1,18 @@
+{% extends 'simple.html' %}
+{% block title %}<title>{{state}}</title>{% endblock %}
+
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+        <ul class="horiz nav">
+            <a href="user/{{user}}"><li>Back</li></a>
+            <a href="{% url 'cart' %}"><li>Cart</li></a>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div>
+        <p>{{error}}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Uploaded Files</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+
+                <h3>Reviewing order for: {{file.first_name}} {{file.last_name}}</h3>
+                <br>
+                <p>Phone: 0{{file.phone}}</p>
+                <br>
+                <p>Email: {{file.email}}</p>
+                <br>
+                <h3>List of books</h3>
+                <img style="float: left;height: auto;width: 40%;" class="pImage" src={{file.list_img.url}} >
+                {% if file.transaction_initiated %}
+                        <div style="width:40%;float: right;">
+                    {% if file.paid %}
+                        <p>Paid</p>
+                    {% else %}
+                        <form action="{% url 'paybookitem' %}" method="post">
+                        {% csrf_token %}
+                            <input type="text" hidden name="id" value={{file.id}}>
+                            <input class="text" type="text" name="total" hidden  value="{{total}}">
+                            <center><input type="submit" class="btn btn-default" value="Reinitiate payment process"></center>
+
+                        </form>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div  class="form" style="width:40%;float: right;">
+                    <p>Add book to order</p>
+
+                    <form action="{% url 'addbookitem' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" hidden name="id" value={{file.id}}>
+
+                    <select name="book">
+                        {% for book in books %}
+                        <option value="{{book.ISBN}}">{{book}}</option>
+                        {% endfor %}
+                    </select><input class="text" type="text" name="quantity" required placeholder="Quantity">
+                    <center><input type="submit" class="btn btn-default" value="Add book to this order"></center>
+
+                </form>
+                    <br>
+                    <br>
+                    <form action="{% url 'paybookitem' %}" method="post">
+                    {% csrf_token %}
+                        <input type="text" hidden name="id" value={{file.id}}>
+                        <input class="text" type="text" name="total" hidden value="{{total}}">
+                        <center><input type="submit" class="btn btn-default" value="Notify owner to pay"></center>
+
+                    </form>
+                    {% endif %}
+
+                </div>
+                <div style="margin-top: 12px;width:40%;float: right;">
+                        <h3>Order summary</h3>
+                        {% for booklistitem in booklistitems %}
+                            <p>{{booklistitem.book}} | Ksh. {{booklistitem.price}}</p>
+                            <br>
+                        {% endfor %}
+                        <h3>Total: Ksh{{total}}</h3>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

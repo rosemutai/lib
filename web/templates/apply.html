@@ -1,0 +1,32 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Applications</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <br>
+                <br>
+                <br>
+               <p>To sell at EBook, please fill in the form below:</p>
+                <form method="POST" action="{% url 'apply'%}">
+                    {% csrf_token %}
+                    <input class="text" type="text" name="shopname" placeholder="Shop Name"/>
+                    <input class="text" type="text" name="description" placeholder="Description">
+
+                    <input class="btn" type="submit" value="Submit"/>
+                </form>
+                <br>
+                <br>
+                {{message}}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

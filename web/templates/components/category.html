@@ -1,0 +1,17 @@
+{% block category %}
+    <div class="category">
+        <div class="search-bar">
+            <form>
+                {% csrf_token %}
+                <input name="search" placeholder="search"/>
+            </form>
+        </div>
+        <div class="category-list">
+            <ul class="list">
+                {% for category in categories %}
+                    <li>{{category}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock category%}

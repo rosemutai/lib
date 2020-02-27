@@ -1,0 +1,47 @@
+@import 'colors';
+*{
+    padding:0px;
+    margin:0px;
+}
+div.mainform{
+    position: relative;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: block;
+    width:400px;
+    text-align: center;
+    padding:20px;
+    box-shadow:5px 5px 5px 5px $secondary;
+    color:$primary;
+}
+input{
+    position: relative;
+    display: block;
+    margin:15px 5px;
+    width: 90%;
+    outline:none;
+    border:none;
+    padding:10px;
+    transition:1s;
+}
+input.text{
+    font-weight: bolder;
+    border-bottom: 1px solid $primary;
+    transition:0.3s;
+}
+input.text:hover{
+    background: lighten($secondary, 10%);
+    color:$primary;
+    font-weight: bolder;
+}
+input.btn:hover{
+    background: $primary;
+    color:white;
+}
+div.error{
+    padding:10px;
+    border:1px solid $primary;
+    color:$primary;
+    font-weight: bolder;
+}

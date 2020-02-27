@@ -1,0 +1,47 @@
+{% extends 'simple.html' %}
+{% load static %}
+{% block title %}<title>Uploads</title></h4></center>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <div class="container">
+        <div class="row" style="margin-top: 160px">
+            <div class="middle">
+                <br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               <p>Please upload your items here</p>
+                <form method="POST" action="#">
+                    {% csrf_token %}
+                    <input class="text" type="text" name="title" placeholder=" Title"/>
+                    <input class="text" type="text" name="isbn" placeholder=" ISBN"/>
+                    <input class="text" type="text" name="author" placeholder=" Author"/>
+                    <input class="text" type="text" name="edition" placeholder=" Edition"/>
+                    <input class="text" type="text" name="price" placeholder=" Price"/>
+                    <input class="text" type="text" name="quantity" placeholder="Quantity"/>
+                    <input class="text" type="file" name="image" placeholder="Book Image"/>
+                    <input class="text" type="text" name="description" placeholder="Description">
+
+                    <input class="btn" type="submit" value="Submit"/>
+                </form>
+                <br>
+                <br>
+                {{message}}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

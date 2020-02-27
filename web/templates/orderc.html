@@ -1,0 +1,50 @@
+{% extends 'simple.html' %}
+<<<<<<< HEAD
+{% block title%}<title>EBook | Order</title>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>EBook</h3>
+        <ul class="horiz nav">
+            <a href="{% url 'guest'%}"><li>Back</li></a>
+=======
+{% block title%}<title>OnlineLib | Order</title>{% endblock %}
+{% block nav %}
+    <div class="topbarner">
+        <h3>OnlineLib</h3>
+        <ul class="horiz nav">
+            <a href="user/{{user}}"><li>Back</li></a>
+>>>>>>> origin/master
+        </ul>
+    </div>
+{% endblock %}
+{% block form %}
+    <div class="middle">
+        <table>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+            {% for item in items %}
+                <tr>
+                    <td>{{item.book_name}}</td>
+                    <td>{{item.price}}</td>
+                    <td></td>
+<<<<<<< HEAD
+                    <td><a href="removeItem/{{item.ISBN}}">Delete</a></td>
+=======
+                    <td><a href="#">Delete</a></td>
+>>>>>>> origin/master
+                </tr>
+            {% endfor %}
+            <tr><th colspan="3">Total Ksh {{total}}</th></tr>
+            <tr><th colspan="3">
+                <form method="POST" action="{% url 'guestpay' %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn" name="Pay" value="Pay"/>
+                </form>
+            </th></tr>
+        </table>
+    </div>
+{% endblock %}
