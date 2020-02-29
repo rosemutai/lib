@@ -1,6 +1,11 @@
 from django.db import models
 from _datetime import datetime
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.db.models import Sum
+from django.conf import settings
+from django.shortcuts import reverse
+from django_countries.fields import CountryField
 
 # Create your models here.
 class User(models.Model):
@@ -148,11 +153,22 @@ class Stationery(models.Model):
     description = models.CharField(max_length=50)
     in_stock = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=15, decimal_places=2)
-    item_img = models.ImageField(default='')
+    slug = models.SlugField(default="", unique=True)
+    item_img = models.ImageField(default='', upload_to='stationaries_images')
     available = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("web:stationeries_view", kwargs={
+            'slug': self.slug
+        })
+
+    def get_add_to_cart_url(self):
+        return reverse("web:add-to-cart", kwargs={
+            'slug': self.slug
+        })
 
 
 class Pen(models.Model):

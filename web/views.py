@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate,logout
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse, JsonResponse
@@ -15,6 +15,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from email import encoders
@@ -73,7 +75,7 @@ def lipa_na_mpesa_online(request,phone,amount):
               "PartyA": phone,
               "PartyB": BusinessShortCode,
               "PhoneNumber": phone,
-              "CallBackURL": ' https://1a8e2657.ngrok.io/stkconfirm/',
+              "CallBackURL": ' https://fff023fc.ngrok.io/stkconfirm/',
               "AccountReference": "ebook",
               "TransactionDesc": 'payment'
         }
@@ -675,3 +677,30 @@ def add_to_cart(request):
             return redirect('signin')
     else:
         return redirect('signin')
+
+@login_required
+def add_to_cart(request, slug):
+    item = get_object_or_404(Stationery, slug=slug)
+    order_item, created = OrderItem.objects.get_or_create(item=item,user=request.user,ordered=False)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item.quantity += 1
+            order_item.save()
+            messages.info(request, "This item quantity was updated.")
+            return redirect("web:order")
+        else:
+            order.items.add(order_item)
+            messages.info(request, "This item was added to your cart.")
+            return redirect("web:order")
+
+    else:
+        ordered_date = datetime.now()
+        order = Order.objects.create(
+            user=request.user, ordered_date=ordered_date)
+        order.items.add(order_item)
+        messages.info(request, "This item was added to your cart.")
+        return redirect("web:order")
+
