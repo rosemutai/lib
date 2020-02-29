@@ -145,7 +145,7 @@ def stkconfirm(request):
         }
         return JsonResponse(dict(context))
 
-def index(request):
+def home(request):
     group_of_categories = GroupOfCategory.objects.all()
     categories = Category.objects.all()
     response = render(request, 'index.html', {'categories': categories},{'group_of_categories':group_of_categories})
@@ -165,17 +165,17 @@ def signup(request):
                 if len(x)==0:
                     u=User(username=f.cleaned_data['username'],email=f.cleaned_data['email'],password=f.cleaned_data['cpass'],postcode=f.cleaned_data['postCode'])
                     u.save()
-                    return render(request,'login.html')
+                    return render(request,'signin.html')
                 else:
                     return render(request,'signup.html',{'error':"Email is already registered"})
             else:
-                return render(request,'signup.html',{'error':"Passwords do not match"})    
+                return render(request,'signup.html',{'error':"Passwords do not match"})
         else:
             return render(request,'signup.html',{'error':"Fill in all the fields and make sure your password is atleast 8 characters long"})
     else:
         return render(request,'signup.html')
 
-def login(request):
+def signin(request):
     if request.method=="POST":
         f=Login(request.POST)
         if f.is_valid():
@@ -187,15 +187,15 @@ def login(request):
                 response.set_cookie('email',x[0].email)
                 return response
             else:
-                return render(request,'signup.html',{'error':"Wrong Email or Password"})    
+                return render(request,'signup.html',{'error':"Wrong Email or Password"})
         else:
             return render(request,'signup.html',{'error':"Invalid Form"})
     else:    
-        return render(request,'login.html')
+        return render(request,'signin.html')
 
 def user_logout(request):
     logout(request)
-    return redirect('index')
+    return redirect('home')
 
 def get_books_by_category(request, name):
     books = Book.objects.filter(category_name=name)
@@ -262,7 +262,7 @@ def user(request,username):
         user=User.objects.get(email=username)
         return render(request,'user.html',{'books':books,'user':user})
     else:
-        return redirect('login')
+        return redirect('signin')
 def cart(request):
     if request.COOKIES['email']:
         u=User.objects.get(email=request.COOKIES['email'])
@@ -276,7 +276,7 @@ def cart(request):
         return render(request,'cart.html',{'items':items,'total':total,'user':request.COOKIES['email']})
 
     else:
-        return render('login')
+        return render('signin')
 
 def addToCart(request):
     if request.COOKIES['email']:
@@ -295,9 +295,9 @@ def addToCart(request):
             c.save()
             return redirect('user',request.COOKIES['email'])
         else:
-            return redirect('login')
+            return redirect('signin')
     else:
-        return redirect('login')
+        return redirect('signin')
 
 
 def removeItem(request,ISBN):
@@ -308,7 +308,7 @@ def removeItem(request,ISBN):
         # c.delete(b)
         return redirect('cart')
     else:
-        return redirect('login')
+        return redirect('signin')
 
 def __len__(self):
     return sum(book['quantity'] for book in self.cart.values())
@@ -448,7 +448,7 @@ def pay(request):
             total=totalPrice(items)
             return render(request,'pay.html',{'total':total,'user':request.COOKIES['email']})   
     else:
-        return render('login')
+        return render('signin')
         
 def checkpay(request):
     return render(request,'confirm.html',{'error':'Payment Received','state':'Payment Success','user':request.COOKIES['email']})
@@ -552,7 +552,7 @@ def approveapplication(request,id):
 
         return redirect('approveseller')
     else:
-        return redirect('login')
+        return redirect('signin')
 
 
 def declineapplication(request,id):
@@ -560,7 +560,7 @@ def declineapplication(request,id):
         declined = ShopApplication.objects.filter(id=id).update(cancel=True)
         return redirect('approveseller')
     else:
-        return redirect('login')
+        return redirect('signin')
 
 def approvedshops(request):
     shops = ShopApplication.objects.filter(accept=True)
@@ -672,6 +672,6 @@ def add_to_cart(request):
             c.save()
             return redirect('user',request.COOKIES['email'])
         else:
-            return redirect('login')
+            return redirect('signin')
     else:
-        return redirect('login')
+        return redirect('signin')

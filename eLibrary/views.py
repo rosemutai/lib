@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
+
 import datetime
 import re
 from django.db.models import Q
@@ -13,7 +14,7 @@ from django.db.models import Q
 User = get_user_model()
 # Create your views here.
 
-def signup(request):
+def register(request):
     register_form = RegisterForm(request.POST or None)
     context = {"register_form": register_form}
 
@@ -24,9 +25,9 @@ def signup(request):
         email = register_form.cleaned_data.get("email")
         password = register_form.cleaned_data.get("password")
         new_user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
-    return render(request, "registration/signup.html", context)
+    return render(request, "registration/register.html", context)
 
-def user_logout(request):
+def logout(request):
     logout(request)
     return redirect('index')
 

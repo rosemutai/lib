@@ -4,8 +4,8 @@ from . import views
 from OnlineLib import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('',views.index,name="index"),
-    path('login',views.login,name="login"),
+    path('',views.home,name="home"),
+    path('signin',views.signin,name="signin"),
     path('signup',views.signup,name="signup"),
     path('shop',views.shop,name="shop"),
     path('pen',views.pens_view,name="pen"),
