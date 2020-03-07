@@ -17,6 +17,10 @@ from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from email import encoders
@@ -240,12 +244,7 @@ def sports_view(request):
     print(sport)
     return render(request, 'sports.html', context)
 
-def stationeries_view(request):
-    context = {}
-    stationeries = Stationery.objects.all()
-    context['stationers'] = stationeries
-    print(stationeries)
-    return render(request, 'stationery.html', context)
+
 
 def user(request,username):
     if request.method == "POST":
@@ -284,6 +283,7 @@ def addToCart(request):
     if request.COOKIES['email']:
         if request.method=="POST":
             ISBN=request.POST.get('isbn')
+            # name = request.POST.get('name')
             q=request.POST.get('quantity')
             if(q==None):
                 q=1
@@ -293,7 +293,8 @@ def addToCart(request):
                 q==q
             u=User.objects.get(email=request.COOKIES['email'])
             b=Book.objects.get(ISBN=ISBN)
-            c=Cart(user=u,book=b,price=b.price,ISBN=ISBN,quantity=q)
+            # s=Stationery.objects.get(name=name)
+            c=Cart(user=u,book=b,price=b.price, ISBN=ISBN,name=name,quantity=q)
             c.save()
             return redirect('user',request.COOKIES['email'])
         else:
@@ -301,6 +302,26 @@ def addToCart(request):
     else:
         return redirect('signin')
 
+def add_stationery_to_cart(request):
+    if request.COOKIES['email']:
+        if request.method == "POST":
+            name = request.POST.get('name')
+            q = request.POST.get('quantity')
+            if (q == None):
+                q = 1
+            elif (len(q) < 1 or q == 0):
+                q = 1
+            else:
+                q == q
+            u = User.objects.get(email=request.COOKIES['email'])
+            b = Stationery.objects.get(name=name)
+            c = Cart(user=u, stationery=b, price=b.price, name=name, quantity=q)
+            c.save()
+            return redirect('user', request.COOKIES['email'])
+        else:
+            return redirect('signin')
+    else:
+        return redirect('signin')
 
 def removeItem(request,ISBN):
     if request.COOKIES['email']:
@@ -379,8 +400,9 @@ def order_user(request):
 
             for item in items:
                 book = Book.objects.get(ISBN=item.ISBN)
+
                 books += [book]
-                OrderItem.objects.create(order=order, books=Book.objects.get(ISBN=item.ISBN), price=item.price, quantity=item.quantity)
+                OrderItem.objects.create(order=order ,books=Book.objects.get(ISBN=item.ISBN), price=item.price, quantity=item.quantity)
             total = totalPrice(items)
             order.total = total
             order.save()
@@ -649,58 +671,23 @@ def paybookitem(request):
 
         return redirect('uploadedfile',id=id)
 
-# def stationery(request):
-#     stationeries = Stationery.objects.filter(~Q(item_img=''))
-#     return render(request, 'shop.html', {'stationeries': stationeries})
-#
-# def sports(request):
-#     return render(request, 'sports.html')
-#     return price
-#
-def add_to_cart(request):
-    if request.COOKIES['email']:
-        if request.method=="POST":
-            book_id=request.POST.get('book_id')
-            q=request.POST.get('quantity')
-            if(q==None):
-                q=1
-            elif(len(q)<1 or q==0):
-                q=1
-            else:
-                q==q
-            u=User.objects.get(email=request.COOKIES['email'])
-            b=ExerciseBook.objects.get(book_id=book_id)
-            c=Cart(user=u,book=b,price=b.price,book_id=book_id,quantity=q)
-            c.save()
-            return redirect('user',request.COOKIES['email'])
-        else:
-            return redirect('signin')
-    else:
-        return redirect('signin')
 
-@login_required
-def add_to_cart(request, slug):
-    item = get_object_or_404(Stationery, slug=slug)
-    order_item, created = OrderItem.objects.get_or_create(item=item,user=request.user,ordered=False)
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1
-            order_item.save()
-            messages.info(request, "This item quantity was updated.")
-            return redirect("web:order")
-        else:
-            order.items.add(order_item)
-            messages.info(request, "This item was added to your cart.")
-            return redirect("web:order")
 
-    else:
-        ordered_date = datetime.now()
-        order = Order.objects.create(
-            user=request.user, ordered_date=ordered_date)
-        order.items.add(order_item)
-        messages.info(request, "This item was added to your cart.")
-        return redirect("web:order")
 
+
+
+
+def stationeries_view(request):
+    context = {}
+    stationeries = Stationery.objects.all()
+    context['stationers'] = stationeries
+    print(stationeries)
+    return render(request, 'stationery.html', context)
+
+
+def novels_view(request):
+    context = {}
+    novels = Novel.objects.all()
+    context['novels'] = novels
+    print(novels)
+    return render(request, 'user.html', context)

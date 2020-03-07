@@ -75,8 +75,8 @@
                     <div class="card-body">
 
                         <h5 class="card-title">{{ stationery.name }}</h5>
-                        <p class="card-text">Price: {{ stationery.price }}</p>
-                        <a href="add-to-cart/<slug>" class="btn btn-danger">Add to Cart</a>
+                        <h6 class="card-text">Price: {{ stationery.price }}</h6>
+                        <a href="{% url 'addStationery' %}" class="btn btn-danger">Add to Cart</a>
 
                         <!--<a href="{% url 'cart' %}" class="btn btn-success">Add to Cart</a>-->
 

@@ -52,8 +52,8 @@
                         <img class="card-img-top" src="{{ book.book.pic.url }}" alt="Sample Title" width="400px"
                              height="400px">
                         <div class="card-body">
-                            <h2 class="card-title"><a href="{{ book.book.get_absolute_url }}">{{ book.book.title }}</a>
-                                ({{ book.book.author }})</h2>
+                            <h2 class="card-title"><a href="{{ book.book.get_absolute_url }}">{{ book.title }}</a>
+                                ({{ book.author }})</h2>
                             <a class="btn btn-success" href="{% url 'ret' pk=book.id %}">Return</a>
                         </div>
                     </div>

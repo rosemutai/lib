@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.db.models import Sum
 from django.conf import settings
 from django.shortcuts import reverse
+from django.utils.text import slugify
 from django_countries.fields import CountryField
 
 # Create your models here.
@@ -46,14 +47,40 @@ class Book(models.Model):
     def __str__(self):
         return self.book_name
 
+class Stationery(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    in_stock = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=15, decimal_places=2)
+    slug = models.SlugField(default="", unique=True)
+    item_img = models.ImageField(default='', upload_to='stationaries_images')
+    available = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse("web:stationeries_view", kwargs={
+    #         'slug': self.slug
+    #     })
+    #
+    # def get_add_to_cart_url(self):
+    #     return reverse("web:add-to-cart", kwargs={
+    #         'slug': self.slug
+    #     })
+
+
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # stationery = models.ForeignKey(Stationery, on_delete=models.CASCADE)
     ISBN =models.CharField(max_length=20)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    name = models.CharField(max_length= 50)
     price=models.IntegerField(default=5)
     date= models.DateTimeField(default=datetime.now())
     quantity = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
+
     def __str__(self):
         return self.user.username
 
@@ -81,6 +108,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     books = models.ForeignKey(Book, on_delete=models.CASCADE)
+    # stationery = models.ForeignKey(Stationery, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 
@@ -148,27 +176,6 @@ class BookListsItems(models.Model):
         quantity = models.IntegerField(default=0)
         timestamp = models.DateTimeField(auto_now_add=True)
 
-class Stationery(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    in_stock = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=15, decimal_places=2)
-    slug = models.SlugField(default="", unique=True)
-    item_img = models.ImageField(default='', upload_to='stationaries_images')
-    available = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("web:stationeries_view", kwargs={
-            'slug': self.slug
-        })
-
-    def get_add_to_cart_url(self):
-        return reverse("web:add-to-cart", kwargs={
-            'slug': self.slug
-        })
 
 
 class Pen(models.Model):
@@ -213,4 +220,57 @@ class Sport(models.Model):
 
     def __str__(self):
         return self.name
+
+CATEGORY_CHOICES = (
+    ('F', 'Fiction'),
+    ('SCI', 'Sciences'),
+    ('ROM', 'Romantic'),
+    ('MYST', 'Mysteries'),
+    ('HIST', 'Historical'),
+    ('DET', 'Detective'),
+
+)
+
+
+class Novel(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=50)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    in_stock = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=15, decimal_places=2)
+    slug = models.SlugField(unique=True, default='')
+    description = models.TextField(default='')
+    image = models.ImageField(upload_to='novels')
+
+    def __str__(self):
+        return self.title
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Novel.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("web:novel", kwargs={
+            'slug': self.slug
+        })
+
+    def get_add_to_cart_url(self):
+        return reverse("web:add_to_cart", kwargs={
+            'slug': self.slug
+        })
+
+    def get_remove_from_cart_url(self):
+        return reverse("web:remove_from_cart", kwargs={
+            'slug': self.slug
+        })
 

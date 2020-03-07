@@ -18,6 +18,7 @@ urlpatterns = [
     path('user/<str:username>',views.user,name="user"),
     path('cart',views.cart,name="cart"),
     path('addToCart',views.addToCart,name="addToCart"),
+    path('addStationery',views.add_stationery_to_cart,name="addStationery"),
     path('removeItem/<str:ISBN>',views.removeItem,name="removeItem"),
     path('pay',views.pay,name="pay"),
     path('checkpay',views.checkpay,name="checkpay"),
@@ -52,7 +53,8 @@ urlpatterns = [
     # path('cart', views.add_to_cart, name='cart'),
     # path('remove', remove_from_cart, name='remove-cart'),
 
-    path('add_to_cart/<slug>', views.add_to_cart, name="cartadd")
+
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

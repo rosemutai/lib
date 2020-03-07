@@ -156,7 +156,7 @@ def MemberList(request):
 
 @login_required
 def MembertDetail(request, pk):
-    member = get_object_or_404(Member, id=pk)
+    member = get_object_or_404(Member, uuid=pk)
     books=Borrower.objects.filter(member=member)
     return render(request, 'catalog/member_detail.html', locals())
 

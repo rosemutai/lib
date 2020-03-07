@@ -74,13 +74,24 @@
                 opacity: 1;
                 margin-right: 50px;
             }
+            .content{
+            margin-left: 50px;
+            }
+            h3{
+            margin-left: 50px;
+
+            }
+            h2{
+            color: pink;
+            margin-left: 50px;
+            }
 
 
     </style>
 
 </head>
 
-{% block title %}<title>EBook | {{user.username}}</title>{% endblock title %}
+{% block title %}<title id="name">EBook | {{user.username}}</title>{% endblock title %}
 
 {% block navbar %}
 
@@ -109,9 +120,11 @@
 </ul>
 {% endblock %}
 {% block shop%}
-<h4>{{user.username}}</h4>
+<h3>{{user.username}}</h3>
+<h2>BOOKS</h2>
 <div class="content">
     <div class="row">
+
         {% for book in books %}
         <div class="col">
             <div class="card" style="width: 18rem;">
@@ -137,7 +150,38 @@
                         </div>
 
                     </button>
-                    <!--<a href="{% url 'addToCart' %}" clcd 4  ass="btn btn-primary">Add to cart</a>-->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <h2>Novels</h2>
+        {% for novel in novels %}
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+
+                <img class="pImage" src={{novel.image.url}}>
+                <div class="card-body">
+
+                    <h5 class="card-title">{{novel.title}}</h5>
+                    <p class="card-title"><h4>Author: {{novel.author}}</h4></p>
+                    <h6>Ksh {{novel.price}}</h6>
+                    <button>
+                        <div>
+                            <form method="POST" action="{% url 'add_to_cart' %}">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{novel.slug}}" name="slug" readonly/>
+                                <input class="text-input" type="text" name="quantity" placeholder="Quantity"/>
+                                <center><input class="aButton" type="submit" value="Add to Cart"></center>
+
+
+                            </form>
+                        </div>
+
+                    </button>
+
                 </div>
             </div>
         </div>

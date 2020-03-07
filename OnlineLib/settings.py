@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # 'social_django',
     'crispy_forms',
     'web',
-    'cart',
     'eLibrary',
 
     
